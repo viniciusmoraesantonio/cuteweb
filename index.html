@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Adriana e Vinicius 💖</title>
+
+<style>
+body {
+  margin: 0;
+  background: linear-gradient(#ffe6f0, #fff);
+  font-family: Arial;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  color: #ff4d88;
+  font-size: 22px;
+}
+
+p {
+  color: #555;
+  font-size: 16px;
+  max-width: 300px;
+}
+
+#foto {
+  width: 80%;
+  max-width: 250px;
+  border-radius: 15px;
+  margin-top: 20px;
+  opacity: 1;
+}
+
+.fade {
+  transition: opacity 0.5s;
+}
+
+#segredo {
+  margin-top: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #ff4d88;
+  text-decoration: underline;
+}
+
+/* horários */
+.horarios {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #777;
+}
+
+/* corações */
+.heart {
+  position: fixed;
+  top: -10px;
+  color: #ff4d88;
+  animation: cair linear infinite;
+  pointer-events: none;
+}
+
+@keyframes cair {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+/* carta */
+.carta {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.caixa {
+  background: #fffafc;
+  padding: 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 320px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.texto {
+  color: #555;
+  font-size: 16px;
+  text-align: left;
+  white-space: pre-line;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>💖 Para a dona do beijo mais gostoso desse mundo 💖</h1>
+
+  <p>
+    Como eu sempre disse para você, quando estamos juntos eu gostaria 
+    de parar o tempo para ficar ali com você 😅
+  </p>
+
+  <img id="foto" src="foto1.jpg">
+
+  <div id="segredo">
+    Vou te contar um segredo... 🤭💖
+  </div>
+
+  <div class="horarios">
+    🇮🇪 Irlanda: <span id="irlanda"></span><br>
+    🇧🇷 Brasil: <span id="brasil"></span>
+  </div>
+</div>
+
+<script>
+let fotos = ["foto1.jpeg", "foto2.jpeg", "foto3.jpeg"];
+let index = 0;
+
+let img = document.getElementById("foto");
+
+// ativa fade depois
+setTimeout(() => {
+  img.classList.add("fade");
+}, 500);
+
+// troca de fotos
+setInterval(() => {
+  index = (index + 1) % fotos.length;
+
+  img.style.opacity = 0;
+
+  setTimeout(() => {
+    img.src = fotos[index];
+    img.style.opacity = 1;
+  }, 300);
+
+}, 3000);
+
+// corações
+setInterval(() => {
+  let heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 15 + 10) + "px";
+  heart.style.animationDuration = (Math.random() * 4 + 3) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 7000);
+
+}, 600);
+
+// horários
+function atualizarHoras() {
+  let agora = new Date();
+
+  let brasil = agora.toLocaleTimeString("pt-BR", {
+    timeZone: "America/Sao_Paulo"
+  });
+
+  let irlanda = agora.toLocaleTimeString("pt-BR", {
+    timeZone: "Europe/Dublin"
+  });
+
+  document.getElementById("brasil").innerText = brasil;
+  document.getElementById("irlanda").innerText = irlanda;
+}
+
+atualizarHoras();
+setInterval(atualizarHoras, 1000);
+
+// clique no segredo
+document.getElementById("segredo").onclick = () => {
+
+  document.body.innerHTML = `
+    <div class="carta">
+      <div class="caixa">
+        <h2 style="color:#ff4d88;">💖 Adriana e Vinicius 💖</h2>
+        <div id="texto" class="texto"></div>
+      </div>
+    </div>
+  `;
+
+  let mensagem = `Acho engraçado e triste...
+logo agora que experimentei o melhor beijo que já tive,
+eu vou para o outro lado do mundo...
+
+Às vezes a vida parece injusta demais, não acha?
+
+Querer muito uma coisa e não ter...
+
+Mas quando eu voltar...
+e se você não tiver ninguém na sua vida...
+
+poderíamos voltar a ser a companhia gostosa um do outro :)
+
+Gosto muito de você, gatinha... muito mesmo 💖😏
+
+Com carinho,
+Vini`;
+
+  let i = 0;
+
+  function escrever() {
+    if (i < mensagem.length) {
+      document.getElementById("texto").innerHTML += mensagem.charAt(i);
+      i++;
+      setTimeout(escrever, 40);
+    }
+  }
+
+  escrever();
+};
+</script>
+
+</body>
+</html>
